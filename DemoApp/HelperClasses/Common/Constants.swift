@@ -6,3 +6,8 @@
 //
 
 import Foundation
+import UIKit
+
+
+// MARK: AppDelegate reference
+let appDelegate = UIApplication.shared.delegate as!(AppDelegate)

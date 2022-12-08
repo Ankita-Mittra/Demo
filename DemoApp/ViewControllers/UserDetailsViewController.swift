@@ -9,21 +9,32 @@ import UIKit
 
 class UserDetailsViewController: UIViewController {
 
+    // MARK: - Outlets & Properties
+
+    @IBOutlet weak var userImgView: UIImageView!
+    @IBOutlet weak var usernameLbl: UILabel!
+    @IBOutlet weak var userIdLbl: UILabel!
+    @IBOutlet weak var userDescLbl: UILabel!
+
+    var userInfo : UserModel!
+    
+    // MARK: - View life cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        // Initial Setup
+        self.initialSetup()
     }
     
+    // MARK: - Methods
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    // Methods for initial setup
+    func initialSetup(){
+        
+        self.usernameLbl.text = userInfo.title
+        self.userIdLbl.text = userInfo.userId?.codingKey.stringValue
+        self.userDescLbl.text = userInfo.body
     }
-    */
 
 }

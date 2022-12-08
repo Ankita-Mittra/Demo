@@ -9,8 +9,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
+@class UserModel;
+@class LocalDatabaseQueries;
+@class fetchAllUsersFromLocalDB;
+
+@class AppDelegate;
+
 @interface UserListViewController : UIViewController
 
+- (void)displayMessageFromCreatedObjectiveCFile;
+
 @end
+
+
 
 NS_ASSUME_NONNULL_END

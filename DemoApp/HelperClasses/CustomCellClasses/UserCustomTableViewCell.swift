@@ -9,6 +9,18 @@ import UIKit
 
 class UserCustomTableViewCell: UITableViewCell {
 
+    // MARK: Outlets & Properties
+    @IBOutlet weak var titleLbl: UILabel!
+    @IBOutlet weak var bodyLbl: UILabel!
+    @IBOutlet weak var userIdLbl: UILabel!
+
+    static let identifier = "UserCustomTableViewCell"
+    static func nib() -> UINib{
+        return UINib(nibName: "UserCustomTableViewCell", bundle: nil)
+    }
+    
+    // MARK: Methods
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
