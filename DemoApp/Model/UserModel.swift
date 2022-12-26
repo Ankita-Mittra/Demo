@@ -10,6 +10,23 @@ import SwiftyJSON
 
 struct UserModel: Codable {
 
+//
+//    {
+//      "id": "2",
+//      "office": "Al MANARA CSO",
+//      "lat": "25.15652",
+//      "lon": "55.227276",
+//      "loc": "Al MANARA"
+//    },
+//
+    
+//    "LocationsApp": {
+//      "FileVer": "99",
+//      "Dist": "60",
+//      "Cordinate": {
+//        "item": [
+//          {
+    
     let userId: Int? // 1
     let title: String? // 2
     let id: Int? // 3

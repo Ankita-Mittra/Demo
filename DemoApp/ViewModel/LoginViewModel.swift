@@ -7,12 +7,13 @@
 
 import Foundation
 import SwiftyJSON
+var list = [DataModel]()
 
 class LoginViewModel{
     
     //MARK: - Properties
    
-    var usersList : [UserModel]? {
+    var dataList : [DataModel]? {
         didSet{
             didFinish?()
         }
@@ -31,12 +32,37 @@ class LoginViewModel{
             
             if succeeded{
                 
-                var users = [UserModel]()
-                for i in data!{
-                    let user = UserModel(with: i)
-                    users.append(user)
+//                "LocationsApp": {
+//                  "FileVer": "99",
+//                  "Dist": "60",
+//                  "Cordinate": {
+//                    "item": [
+//
+//
+//                let dict = response.result.value as? NSDictionary
+                
+                let dict = data as? NSDictionary
+                
+                let locationApp = dict?.value(forKey: "LocationsApp") as? NSDictionary
+                
+                
+                let Cordinate = locationApp?.value(forKey: "Cordinate") as? NSDictionary
+                
+                let item = Cordinate?.value(forKey: "item") as? [[String:Any]]
+
+                print("dict...", dict)
+                
+                for i in item!{
+                    let data = DataModel(with: i)
+                    list.append(data)
                 }
-                self.saveUsersLocally(users: users)
+                
+                self.dataList = list
+                
+                print("dataList.........", self.dataList)
+
+                
+//                self.saveUsersLocally(users: users)
                 // save locally
             }
             if error != ""{
@@ -47,12 +73,12 @@ class LoginViewModel{
     
     //MARK: - Local DB Operations
     
-    // save groups to local db
-    func saveUsersLocally(users:[UserModel]){
-        LocalDatabaseQueries.addAndUpdateUsersInLocalDB(users: users)
-        
-        self.usersList = users
-    }
+//    // save groups to local db
+//    func saveUsersLocally(users:[UserModel]){
+//        LocalDatabaseQueries.addAndUpdateUsersInLocalDB(users: users)
+//
+//        self.dataList = users
+//    }
     
 }
 

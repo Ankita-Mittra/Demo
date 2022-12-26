@@ -1,5 +1,5 @@
 //
-//  UsersListViewController.swift
+//  ListViewController.swift
 //  DemoApp
 //
 //  Created by Admin on 07/12/2022.
@@ -7,12 +7,15 @@
 
 import UIKit
 
-class UsersListViewController: UIViewController {
+class ListViewController: UIViewController {
 
     // MARK: - Outlets & Properties
 
     @IBOutlet weak var allUsersTableView: UITableView!
-    var users = [UserModel]()
+    
+    var dataList = [DataModel]()
+
+//    var users = [UserModel]()
     
     // MARK: - View life cycle
     
@@ -21,35 +24,39 @@ class UsersListViewController: UIViewController {
         
         // Initial Setup
         
+        
+        print(list.count)
+        
+        self.dataList = list
         // Register cell
         self.allUsersTableView.register(UserCustomTableViewCell.nib(), forCellReuseIdentifier: UserCustomTableViewCell.identifier)
         self.allUsersTableView.rowHeight = UITableView.automaticDimension
         self.allUsersTableView.estimatedRowHeight = 100
         
         // Fetch data from Local DB and display on screen
-        self.fetchUsersFromLocalDB()
+//        self.fetchUsersFromLocalDB()
     }
     
     // MARK: - Methods
     
-    // Method to fetch all Records from local Database
-    func fetchUsersFromLocalDB(){
-        self.users = LocalDatabaseQueries.fetchAllUsersFromLocalDB()
-        self.allUsersTableView.reloadData()
-    }
+//    // Method to fetch all Records from local Database
+//    func fetchUsersFromLocalDB(){
+//        self.dataList = LocalDatabaseQueries.fetchAllUsersFromLocalDB()
+//        self.allUsersTableView.reloadData()
+//    }
     
 }
 
-extension UsersListViewController: UITableViewDelegate, UITableViewDataSource {
+extension ListViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.users.count
+        return self.dataList.count
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Move to Show user Details screen
-        let secondViewController = self.storyboard?.instantiateViewController(withIdentifier: "UserDetailsViewController") as! UserDetailsViewController
-        secondViewController.userInfo = self.users[indexPath.row]
+        let secondViewController = self.storyboard?.instantiateViewController(withIdentifier: "DetailsViewController") as! DetailsViewController
+        secondViewController.info = self.dataList[indexPath.row]
         self.navigationController?.pushViewController(secondViewController, animated: true)
     }
     
@@ -59,9 +66,9 @@ extension UsersListViewController: UITableViewDelegate, UITableViewDataSource {
         guard  let userCell = self.allUsersTableView.dequeueReusableCell(withIdentifier: UserCustomTableViewCell.identifier , for: indexPath) as? UserCustomTableViewCell else {
             return cell
         }
-        let dict = self.users[indexPath.row]
-        userCell.bodyLbl.text = dict.body
-        userCell.titleLbl.text = dict.title
+        let dict = self.dataList[indexPath.row]
+        userCell.bodyLbl.text = dict.location
+        userCell.titleLbl.text = dict.office
         
         return userCell
     }

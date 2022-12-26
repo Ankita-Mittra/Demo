@@ -13,18 +13,25 @@ import SwiftyJSON
 
 struct UserAPIServices {
 
-    func getUsersData( completion: @escaping (_ data: [[String:AnyObject]]?, _ succeeded: Bool, _ error: String) -> Void) {
+    // [[String:AnyObject]]
+    func getUsersData( completion: @escaping (_ data: [String:AnyObject]?, _ succeeded: Bool, _ error: String) -> Void) {
     
-        let url = "https://jsonplaceholder.typicode.com/posts"
+        
+//        let url = "https://jsonplaceholder.typicode.com/posts"
          
-         AF.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseData { response in
+        let url = "https://smartoffice.dewa.gov.ae/dev/DewaLocations.json"
+        
+
+        
+        AF.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseData { response in
 
                  switch response.result {
                      case .success(let data):
                      CommonFxns.dismissProgress()
 
                          do {
-                             guard let jsonObject = try JSONSerialization.jsonObject(with: data) as? [Any] else {
+
+                             guard let jsonObject = try JSONSerialization.jsonObject(with: data) as? Any else {
                                  print("Error: Cannot convert data to JSON object")
                                  
                                  return completion(nil, false, response.error.debugDescription)
@@ -41,13 +48,13 @@ struct UserAPIServices {
                              }
                              
                               print("prettyPrintedJson...", prettyPrintedJson)
-                             completion(prettyPrintedJson.toJSON() as? [[String:AnyObject]], true, "")
+                             completion(prettyPrintedJson.toJSON() as? [String:AnyObject], true, "")
                          } catch {
                              print("Error: Trying to convert JSON data to string")
                              return
                          }
                      case .failure(let error):
-                         print(error)
+                         print( "failure....", error)
 
                      completion(nil, false, response.error.debugDescription)
 

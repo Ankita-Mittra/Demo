@@ -16,11 +16,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet weak var countryTextField: UITextField!
 
     let viewModel = LoginViewModel()
-    var users = [UserModel]()
+    var list = [DataModel]()
     let countries = ["Japan","India", "Georgia", "US", "United Arab Emirates"]
     let pickerView = UIPickerView()
     
-    let UserListViewControllerObjectiveCFile = UserListViewController()
+//    let UserListViewControllerObjectiveCFile = ListViewController()
     
     // MARK: - View life cycle
     
@@ -32,16 +32,22 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         self.pickerView.dataSource = self
         self.countryTextField.inputView = pickerView
         
-        UserListViewControllerObjectiveCFile.displayMessageFromCreatedObjectiveCFile()
+        
+        
+//        UserListViewControllerObjectiveCFile.displayMessageFromCreatedObjectiveCFile()
 
     }
     
     // MARK: - Methods
     
     func gotoNextScreen(){
-        let secondViewController = self.storyboard?.instantiateViewController(withIdentifier: "UsersListViewController") as! UsersListViewController
+        let secondViewController = self.storyboard?.instantiateViewController(withIdentifier: "ListViewController") as! ListViewController
 
-//        secondViewController.users = self.users
+        secondViewController.dataList = list
+        
+        
+        
+        print("self.list.....", self.list.count)
         self.navigationController?.pushViewController(secondViewController, animated: true)
     }
     
@@ -70,7 +76,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     // MARK: - Network's Calls
     
     private func fetchDataFromServer() {
-           
         viewModel.showAlertClosure = {
             error in
             print("showAlertClosure")
@@ -78,8 +83,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
             CommonFxns.showAlert(self, message: error, title: "Alert")
         }
         viewModel.didFinish = {
+            print("self.list.count...", self.list.count)
             self.gotoNextScreen()
         }
+        
         
         viewModel.fetchUsers()
     }

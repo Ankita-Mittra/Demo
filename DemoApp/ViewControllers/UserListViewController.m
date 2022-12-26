@@ -14,7 +14,7 @@
 @interface UserListViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *allUsersTableiew;
-@property (strong, nonatomic) UserDetailsViewController *userDetailsVC;
+@property (strong, nonatomic) DetailsViewController *userDetailsVC;
 @property NSArray *users ;
 @property (strong, nonatomic) LocalDatabaseQueries *getUsers;
 
@@ -63,7 +63,7 @@ NSLog(@"This Message From Created Objective-C File with Swift Project");
     
     
     
-    UserDetailsViewController *vc = [[self storyboard] instantiateViewControllerWithIdentifier: @"UserDetailsViewController"];
+    DetailsViewController *vc = [[self storyboard] instantiateViewControllerWithIdentifier: @"DetailsViewController"];
 
     UINavigationController *navBar = [[UINavigationController alloc]initWithRootViewController:vc];
     
